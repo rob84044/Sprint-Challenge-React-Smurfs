@@ -11,7 +11,11 @@ class App extends Component {
     this.state = {
       smurfs: [],
       getErrorMessage: '',
-      smurf: []
+      smurf: {
+        name: '',
+        age: '',
+        height: ''
+      }
     };
   }
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
