@@ -10,7 +10,12 @@ class App extends Component {
     super(props);
     this.state = {
       smurfs: [],
-      getErrorMessage: ''
+      getErrorMessage: '',
+      smurf: {
+        name: '',
+        age: '',
+        height: ''
+      }
     };
   }
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
@@ -30,8 +35,6 @@ class App extends Component {
       .then(res => {
         this.setState({ smurfs: res.data });
 
-        this.updateSmurf();
-
         this.props.history.push('/');
       })
       .catch(err => console.log(err));
@@ -42,7 +45,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <SmurfForm />
+        <SmurfForm post={this.updateSmurfList} />
         <Smurfs smurfs={this.state.smurfs} />
       </div>
     );
