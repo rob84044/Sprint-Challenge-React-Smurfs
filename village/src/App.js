@@ -11,11 +11,7 @@ class App extends Component {
     this.state = {
       smurfs: [],
       getErrorMessage: '',
-      smurf: {
-        name: '',
-        age: '',
-        height: ''
-      }
+      smurf: []
     };
   }
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
@@ -29,14 +25,11 @@ class App extends Component {
       });
   }
 
-  updateSmurfList = (e, smurf) => {
+  addSmurf = (e, smurf) => {
+    // e.preventDefault();
     axios
-      .put(`http://localhost:3333/smurfs/${smurf.id}`, smurf)
-      .then(res => {
-        this.setState({ smurfs: res.data });
-
-        this.props.history.push('/');
-      })
+      .post('http://localhost:3333/smurfs', smurf)
+      .then(res => this.setState({ smurf, smurfs: res.data }))
       .catch(err => console.log(err));
   };
 
@@ -45,7 +38,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <SmurfForm post={this.updateSmurfList} />
+        <SmurfForm post={this.addSmurf} />
         <Smurfs smurfs={this.state.smurfs} />
       </div>
     );
