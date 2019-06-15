@@ -23,6 +23,20 @@ class App extends Component {
         this.setState({ getErrorMessage: 'Could not retrieve any smurfs' });
       });
   }
+
+  updateSmurfList = (e, smurf) => {
+    axios
+      .put(`http://localhost:3333/smurfs/${smurf.id}`, smurf)
+      .then(res => {
+        this.setState({ smurfs: res.data });
+
+        this.updateSmurf();
+
+        this.props.history.push('/');
+      })
+      .catch(err => console.log(err));
+  };
+
   // Notice what your map function is looping over and returning inside of Smurfs.
   // You'll need to make sure you have the right properties on state and pass them down to props.
   render() {
